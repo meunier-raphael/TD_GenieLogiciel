@@ -7,7 +7,7 @@ package fr.ufrsciencestech.compteur.view;
 
 import fr.ufrsciencestech.compteur.TestUtils;
 import fr.ufrsciencestech.compteur.controler.Controleur;
-import fr.ufrsciencestech.compteur.model.Modele;
+import fr.ufrsciencestech.compteur.model.Panier;
 import java.awt.Button;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -23,12 +23,12 @@ import static org.junit.Assert.*;
 public class VueGraphAWTTest {
     private static VueGraphAWT vueg;
     private Controleur c;
-    private Modele m;
+    private Panier m;
 
     @Before
     public void setUp() {
         vueg = new VueGraphAWT();
-        m = new Modele();
+        m = new Panier(10);
         c = new Controleur();
         
         c.setModele(m);
@@ -51,7 +51,7 @@ public class VueGraphAWTTest {
         
         //si on oublie d'ajouter la vue comme observateur du modele, elle ne se met pas à jour correctement
         assertEquals(vueg.getAffiche().getText(), "0");
-        m.setCompteur(4); 
+        //m.setCompteur(4); 
         assertEquals(vueg.getAffiche().getText(), "4");
         
         vueg.setAffiche(new Label("0", Label.CENTER));

@@ -7,7 +7,7 @@ package fr.ufrsciencestech.compteur;
 
 import fr.ufrsciencestech.compteur.controler.Controleur;
 import fr.ufrsciencestech.compteur.view.*;
-import fr.ufrsciencestech.compteur.model.Modele;
+import fr.ufrsciencestech.compteur.model.Panier;
 
 //utilise pour springIoC :
 import javax.swing.*;
@@ -55,7 +55,7 @@ public class TestMVC {
         //sans utiliser SpringIoC :
         vueg = new VueGraphSwing();
         controleur = new Controleur();
-        Modele modele = new Modele();
+        Panier modele = new Panier(10);
         VueConsole vuec = new VueConsole();
 
         controleur.setModele(modele);                 
@@ -65,21 +65,21 @@ public class TestMVC {
     }
     
     public static void main(String[] args){
-        TestMVC test = new TestMVC();    //sans utiliser SpringIoC
+        //TestMVC test = new TestMVC();    //sans utiliser SpringIoC
         
         //La meme chose mais avec SpringIoC :
-        /*ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         TestMVC test = (TestMVC)context.getBean("MVC");  //SpringIoC
         test.setControleur( (Controleur)context.getBean("Controleur") );  //SpringIoC
         test.setVueg( (VueG)context.getBean("Vue") );   //SpringIoC
          
-        Modele m = new Modele(); 
+        Panier m = new Panier(10); 
         test.getControleur().setModele(m);  
         
         m.addObserver(test.getVueg());
         test.getVueg().addControleur(test.getControleur());
         
         VueConsole vuec = new VueConsole();
-        m.addObserver(vuec);  */
+        m.addObserver(vuec);
     }
 }

@@ -7,7 +7,7 @@ package fr.ufrsciencestech.compteur.view;
 
 import fr.ufrsciencestech.compteur.TestUtils;
 import fr.ufrsciencestech.compteur.controler.Controleur;
-import fr.ufrsciencestech.compteur.model.Modele;
+import fr.ufrsciencestech.compteur.model.Panier;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import org.junit.After;
@@ -22,12 +22,12 @@ import static org.junit.Assert.*;
 public class VueGraphSwingTest {
     private static VueGraphSwing vueg;
     private Controleur c;
-    private Modele m;
+    private Panier m;
 
     @Before
     public void setUp() {
         vueg = new VueGraphSwing();
-        m = new Modele();
+        m = new Panier(10);
         c = new Controleur();
         
         c.setModele(m);
@@ -50,7 +50,7 @@ public class VueGraphSwingTest {
         
         //si on oublie d'ajouter la vue comme observateur du modele, elle ne se met pas à jour correctement
         assertEquals(vueg.getAffiche().getText(), "0");
-        m.setCompteur(4); 
+        //m.setCompteur(4); 
         assertEquals(vueg.getAffiche().getText(), "4");
         
         vueg.setAffiche(new JLabel("0", JLabel.CENTER));

@@ -6,6 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,6 +22,8 @@ public class VueGraphAWT extends Frame implements VueG{
     private Button inc;
     private Button dec;
     private Label affiche;
+    private JTextArea contenu;
+    private Panel pane;
 
     /**
      * @return the inc
@@ -65,13 +68,14 @@ public class VueGraphAWT extends Frame implements VueG{
     }
    
     public VueGraphAWT(){
-        super("CompteurAWT");
+        super("TD Panier");
         inc = new Button("+");
         dec = new Button("-");
         affiche = new Label("0", Label.CENTER);
         add(inc, BorderLayout.NORTH);
         add(dec, BorderLayout.SOUTH);
-        add(affiche, BorderLayout.CENTER);
+        add(pane, BorderLayout.CENTER);
+        
         
         this.addWindowListener(new WindowAdapter(){
             @Override

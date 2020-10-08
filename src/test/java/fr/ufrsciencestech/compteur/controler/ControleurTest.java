@@ -6,7 +6,7 @@
 package fr.ufrsciencestech.compteur.controler;
 
 import fr.ufrsciencestech.compteur.view.VueGraphSwing;
-import fr.ufrsciencestech.compteur.model.Modele;
+import fr.ufrsciencestech.compteur.model.Panier;
 import java.awt.event.ActionEvent;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,8 @@ import static org.junit.Assert.*;
 public class ControleurTest {
     Controleur c1;
     Controleur c2;
-    Modele m1, m2;
+    Panier m1;
+    Panier m2;
     VueGraphSwing vueg;
     ActionEvent einc;
     ActionEvent edec;
@@ -31,8 +32,8 @@ public class ControleurTest {
     public void setUp(){
         c1 = new Controleur();
         c2 = new Controleur();
-        m1 = new Modele();
-        m2 = new Modele();
+        m1 = new Panier(10);
+        m2 = new Panier(10);
         vueg = new VueGraphSwing(); 
         c1.setModele(m1);
         
@@ -48,12 +49,12 @@ public class ControleurTest {
     public void testActionPerformed() {
         System.out.println("actionPerformed");
 
-        assertTrue(m1.getCompteur() == 0);
+        assertTrue(m1.getTaillePanier() == 0);
         c1.actionPerformed(einc);
-        assertTrue(m1.getCompteur() == 1);
+        assertTrue(m1.getTaillePanier() == 1);
 
         c1.actionPerformed(edec);
-        assertTrue(m1.getCompteur() == 0);
+        assertTrue(m1.getTaillePanier() == 0);
     }
     
     /**
@@ -62,14 +63,14 @@ public class ControleurTest {
     @Test   //ignorer pour fonctionner dans Jenkins
     public void testActionPerformedSet() {
         System.out.println("actionPerformedSet");
-        assertTrue(m1.getCompteur() == 0);
-        m1.setCompteur(3);
+        assertTrue(m1.getTaillePanier() == 0);
+        //m1.setCompteur(3);
         
         c1.actionPerformed(einc);
-        assertTrue(m1.getCompteur() == 4);
+        assertTrue(m1.getTaillePanier() == 4);
         
         c1.actionPerformed(edec);
-        assertTrue(m1.getCompteur() == 3);
+        assertTrue(m1.getTaillePanier() == 3);
     }
     
     /**
@@ -78,10 +79,10 @@ public class ControleurTest {
     @Test  //ignore pour fonctionner dans Jenkins
     public void testActionPerformedVide() {
         System.out.println("actionPerformedVide");
-        assertTrue(m1.getCompteur() == 0);
+        assertTrue(m1.getTaillePanier() == 0);
         
         c1.actionPerformed(edec);
-        assertTrue(m1.getCompteur() == 0);
+        assertTrue(m1.getTaillePanier() == 0);
     }
 
     /**
@@ -92,7 +93,7 @@ public class ControleurTest {
         System.out.println("setModele");
         c1.setModele(m2);
         c1.actionPerformed(einc);
-        assertTrue(m2.getCompteur() == 1);
+        assertTrue(m2.getTaillePanier() == 1);
     }
     
 }

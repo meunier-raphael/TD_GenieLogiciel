@@ -5,8 +5,10 @@
  */
 package fr.ufrsciencestech.compteur.view;
 
+import fr.ufrsciencestech.compteur.model.Orange;
 import fr.ufrsciencestech.compteur.view.VueConsole;
-import fr.ufrsciencestech.compteur.model.Modele;
+import fr.ufrsciencestech.compteur.model.Panier;
+import fr.ufrsciencestech.compteur.model.PanierPleinException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -17,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class VueConsoleTest {
     VueConsole vuec;
-    Modele m;
+    Panier m;
     
     public VueConsoleTest() {
     }
@@ -25,35 +27,35 @@ public class VueConsoleTest {
     @Before
     public void setUp() {
         vuec = new VueConsole();
-        m = new Modele();
+        m = new Panier(10);
     }
         
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws PanierPleinException {
         System.out.println("update");    
        
         //si on oublie d'ajouter la vue comme observateur du modele, elle ne se met pas à jour correctement
         assertEquals(vuec.getTrace(), "Valeur initiale : " + 0);
-        m.setCompteur(4);                 
-        assertTrue(m.getCompteur() == 4);
+        //m.setCompteur(4);                 
+        assertTrue(m.getTaillePanier() == 4);
         assertEquals(vuec.getTrace(), "Valeur initiale : " + 0);   //aucune influence sur la vue
         
         //si on ajoute la vue comme observateur du modele, elle se met à jour correctement
         assertEquals(vuec.getTrace(), "Valeur initiale : " + 0);
         m.addObserver(vuec);    //on ajoute la vue comme observateur du modele
         //on passe par la methode setCompteur de la classe Modele :
-        m.setCompteur(2);
-        assertTrue(m.getCompteur() == 2);
+        //m.setCompteur(2);
+        assertTrue(m.getTaillePanier() == 2);
         assertEquals(vuec.getTrace(), "Nouvelle valeur : " + 2);  //mise à jour correcte
         
         //on passe par la methode update de la classe Modele :
-        m.update(2);
-        assertTrue(m.getCompteur() == 4);
+        m.ajout(new Orange());
+        assertTrue(m.getTaillePanier() == 4);
         assertEquals(vuec.getTrace(), "Nouvelle valeur : " + 4);  //mise à jour correcte
         
         //on passe par la methode update de la classe Modele (en decrementant trop) :
-        m.update(-6);
-        assertTrue(m.getCompteur() == 0);
+        m.ajout(new Orange());
+        assertTrue(m.getTaillePanier() == 0);
         assertEquals(vuec.getTrace(), "Nouvelle valeur : " + 0);  //mise à jour correcte
     }
 }
